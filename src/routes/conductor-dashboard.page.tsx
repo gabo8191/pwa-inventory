@@ -10,7 +10,7 @@ export const ConductorDashboardPage: React.FC = () => {
     <PageContainer gradient='purple'>
       {/* Header */}
       <div className='mb-8 text-center'>
-        <div className='w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 bg-gradient-to-br from-blue-600 to-indigo-600 rounded-full flex items-center justify-center shadow-2xl'>
+        <div className='w-20 h-20 md:w-24 md:h-24 mx-auto mb-4 bg-gradient-to-br from-green-600 to-emerald-600 rounded-full flex items-center justify-center shadow-2xl'>
           <FaTruck className='text-white text-2xl md:text-3xl' />
         </div>
         <h1 className='text-2xl md:text-3xl font-bold text-slate-800 mb-2'>
@@ -35,7 +35,7 @@ export const ConductorDashboardPage: React.FC = () => {
           title='Recepción de Ingreso'
           description='Confirma la recepción de materias primas y productos entrantes'
           icon={FaClipboardCheck}
-          color='blue'
+          color='green'
           onClick={() => navigate('/recepcion-ingreso')}
         />
       </div>

@@ -24,7 +24,7 @@ export const Input: React.FC<InputProps> = ({
   const baseInputClasses =
     'w-full h-10 md:h-11 px-3 md:px-4 rounded-lg bg-white border text-slate-800 placeholder-slate-400 outline-none transition-all duration-200 text-sm md:text-base';
   const normalState =
-    'border-slate-300 focus:ring-2 focus:ring-cyan-500 focus:border-transparent';
+    'border-slate-300 focus:ring-2 focus:ring-green-500 focus:border-transparent';
   const errorState =
     'border-red-500 focus:ring-2 focus:ring-red-500 focus:border-transparent';
 
@@ -45,7 +45,7 @@ export const Input: React.FC<InputProps> = ({
         {label && (
           <label
             htmlFor={inputId}
-            className='absolute left-3 md:left-4 -top-2.5 bg-white px-2 text-xs md:text-sm font-medium text-slate-600 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-2.5 md:peer-placeholder-shown:top-3 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-xs md:peer-focus:text-sm peer-focus:text-cyan-600 peer-focus:bg-white'
+            className='absolute left-3 md:left-4 -top-2.5 bg-white px-2 text-xs md:text-sm font-medium text-slate-600 transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-slate-400 peer-placeholder-shown:top-2.5 md:peer-placeholder-shown:top-3 peer-placeholder-shown:bg-transparent peer-focus:-top-2.5 peer-focus:text-xs md:peer-focus:text-sm peer-focus:text-green-600 peer-focus:bg-white'
           >
             {label}
           </label>

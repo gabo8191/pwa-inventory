@@ -1,73 +1,80 @@
+import { type VariantProps, cva } from 'class-variance-authority';
 import React from 'react';
-import type { IconType } from 'react-icons';
+import { cn } from '../../lib/utils';
 
-interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'success' | 'danger' | 'ghost';
-  size?: 'sm' | 'md' | 'lg';
-  icon?: IconType;
-  iconPosition?: 'left' | 'right';
-  fullWidth?: boolean;
+const buttonVariants = cva(
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium ring-offset-background transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]',
+  {
+    variants: {
+      variant: {
+        default:
+          'bg-primary text-primary-foreground hover:bg-primary/90 shadow-md hover:shadow-lg',
+        destructive:
+          'bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-md hover:shadow-lg',
+        outline:
+          'border border-input bg-background hover:bg-accent hover:text-accent-foreground',
+        secondary:
+          'bg-secondary text-secondary-foreground hover:bg-secondary/80',
+        ghost: 'hover:bg-accent hover:text-accent-foreground',
+        link: 'text-primary underline-offset-4 hover:underline',
+        primary:
+          'bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white shadow-lg hover:shadow-xl focus:ring-green-500',
+      },
+      size: {
+        default: 'h-10 px-4 py-2',
+        sm: 'h-9 rounded-lg px-3',
+        lg: 'h-11 rounded-xl px-8',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  },
+);
+
+export interface ButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
+    VariantProps<typeof buttonVariants> {
   loading?: boolean;
-  children: React.ReactNode;
+  fullWidth?: boolean;
 }
 
-export const Button: React.FC<ButtonProps> = ({
-  variant = 'primary',
-  size = 'md',
-  icon: Icon,
-  iconPosition = 'left',
-  fullWidth = false,
-  loading = false,
-  className = '',
-  children,
-  disabled,
-  ...props
-}) => {
-  const baseClasses =
-    'inline-flex items-center justify-center font-medium transition-all duration-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-offset-2';
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      className,
+      variant,
+      size,
+      loading = false,
+      fullWidth = false,
+      children,
+      disabled,
+      ...props
+    },
+    ref,
+  ) => {
+    return (
+      <button
+        className={cn(
+          buttonVariants({ variant, size, className }),
+          fullWidth && 'w-full',
+          loading && 'pointer-events-none opacity-70',
+        )}
+        ref={ref}
+        disabled={disabled || loading}
+        {...props}
+      >
+        {loading && (
+          <div className='h-4 w-4 animate-spin rounded-full border-2 border-current border-t-transparent' />
+        )}
+        {children}
+      </button>
+    );
+  },
+);
 
-  const variants = {
-    primary:
-      'bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white shadow-lg hover:shadow-xl focus:ring-cyan-500',
-    secondary:
-      'bg-slate-200 hover:bg-slate-300 text-slate-700 shadow-sm hover:shadow-md focus:ring-slate-500',
-    success:
-      'bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-700 hover:to-green-700 text-white shadow-lg hover:shadow-xl focus:ring-emerald-500',
-    danger:
-      'bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-700 hover:to-rose-700 text-white shadow-lg hover:shadow-xl focus:ring-red-500',
-    ghost:
-      'bg-transparent hover:bg-slate-100 text-slate-600 hover:text-slate-800 focus:ring-slate-500',
-  };
+Button.displayName = 'Button';
 
-  const sizes = {
-    sm: 'h-8 px-3 text-sm gap-1.5',
-    md: 'h-10 md:h-11 px-4 md:px-6 text-sm md:text-base gap-2',
-    lg: 'h-12 md:h-14 px-6 md:px-8 text-base md:text-lg gap-2.5',
-  };
-
-  const widthClass = fullWidth ? 'w-full' : '';
-  const disabledClass =
-    disabled || loading ? 'opacity-50 cursor-not-allowed' : '';
-
-  const iconSize =
-    size === 'sm' ? 'text-xs' : size === 'lg' ? 'text-lg' : 'text-sm';
-
-  return (
-    <button
-      className={`${baseClasses} ${variants[variant]} ${sizes[size]} ${widthClass} ${disabledClass} ${className}`}
-      disabled={disabled || loading}
-      {...props}
-    >
-      {loading && (
-        <div className='animate-spin rounded-full h-4 w-4 border-2 border-current border-t-transparent' />
-      )}
-      {Icon && iconPosition === 'left' && !loading && (
-        <Icon className={iconSize} />
-      )}
-      <span>{children}</span>
-      {Icon && iconPosition === 'right' && !loading && (
-        <Icon className={iconSize} />
-      )}
-    </button>
-  );
-};
+export { Button, buttonVariants };

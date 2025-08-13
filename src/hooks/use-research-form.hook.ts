@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-toastify';
 import { researchFormService } from '../services/research-form.service';
 import type { IApiError } from '../types/research-form.types';
 import { OfflineStorageUtils } from '../utils/offline-storage.utils';
@@ -179,7 +180,7 @@ export const useResearchForm = (): UseResearchFormReturn => {
   // Force sync offline data manually
   const forceSyncOfflineData = useCallback(async () => {
     if (!navigator.onLine) {
-      alert('No hay conexión a internet. Intenta más tarde.');
+      toast.error('No hay conexión a internet. Intenta más tarde.');
       return;
     }
 
@@ -187,7 +188,7 @@ export const useResearchForm = (): UseResearchFormReturn => {
     const storedData = OfflineStorageUtils.getStoredFormData();
 
     if (storedData.length === 0) {
-      alert('No hay datos pendientes para sincronizar.');
+      toast.info('No hay datos pendientes para sincronizar.');
       setIsSyncing(false);
       return;
     }
@@ -213,14 +214,16 @@ export const useResearchForm = (): UseResearchFormReturn => {
 
     // Show result to user
     if (successCount > 0 && errorCount === 0) {
-      alert(`✅ ${successCount} formulario(s) sincronizado(s) exitosamente.`);
+      toast.success(
+        `✅ ${successCount} formulario(s) sincronizado(s) exitosamente.`,
+      );
     } else if (successCount > 0 && errorCount > 0) {
-      alert(
+      toast.warning(
         `⚠️ ${successCount} formulario(s) sincronizado(s), ${errorCount} fallaron.`,
       );
     } else {
-      alert(
-        `❌ No se pudo sincronizar ningún formulario. Verifica tu conexión.`,
+      toast.error(
+        '❌ No se pudo sincronizar ningún formulario. Verifica tu conexión.',
       );
     }
   }, [updatePendingCount]);
@@ -234,7 +237,7 @@ export const useResearchForm = (): UseResearchFormReturn => {
     if (confirm) {
       OfflineStorageUtils.clearAllStoredData();
       updatePendingCount();
-      alert('Datos offline eliminados.');
+      toast.success('Datos offline eliminados.');
     }
   }, [updatePendingCount]);
 

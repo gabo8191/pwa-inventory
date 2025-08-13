@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaCubes, FaSignOutAlt } from 'react-icons/fa';
+import { FaSignOutAlt } from 'react-icons/fa';
 import { useLocation, useNavigate } from 'react-router-dom';
 
 export const Header: React.FC = () => {
@@ -9,6 +9,7 @@ export const Header: React.FC = () => {
   // Show logout button on dashboard pages
   const isLoggedIn =
     location.pathname.includes('/dashboard') ||
+    location.pathname.includes('/conductor-dashboard') ||
     location.pathname.includes('/ingreso') ||
     location.pathname.includes('/salida') ||
     location.pathname.includes('/traslados') ||
@@ -21,14 +22,23 @@ export const Header: React.FC = () => {
 
   return (
     <header className='sticky top-0 z-40 w-full border-b border-slate-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60'>
-      <div className='container mx-auto px-4 h-14 flex items-center justify-between'>
-        <a href='/' className='flex items-center gap-2 group'>
-          <div className='h-6 w-6 rounded-md bg-cyan-500/15 grid place-items-center text-cyan-600 group-hover:scale-105 transition-transform'>
-            <FaCubes className='h-3.5 w-3.5' />
+      <div className='container mx-auto px-4 h-16 flex items-center justify-between'>
+        <a href='/' className='flex items-center gap-3 group'>
+          <div className='h-10 w-10 rounded-lg overflow-hidden bg-green-50 flex items-center justify-center group-hover:scale-105 transition-transform'>
+            <img
+              src='/home.png'
+              alt='MATERIALES DE LA SABANA'
+              className='h-8 w-8 object-contain'
+            />
           </div>
-          <h1 className='text-cyan-700 font-bold tracking-wide group-hover:text-cyan-600 transition-colors'>
-            TotalDev
-          </h1>
+          <div className='flex flex-col'>
+            <h1 className='text-green-700 font-bold text-sm leading-tight group-hover:text-green-600 transition-colors'>
+              MATERIALES DE LA SABANA
+            </h1>
+            <span className='text-green-600 text-xs opacity-80'>
+              Sistema de Gestión
+            </span>
+          </div>
         </a>
 
         <div className='flex items-center gap-3'>

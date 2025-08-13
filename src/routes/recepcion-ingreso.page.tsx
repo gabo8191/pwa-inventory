@@ -62,20 +62,20 @@ export const RecepcionIngresoPage: React.FC = () => {
   };
 
   return (
-    <PageContainer gradient='blue'>
+    <PageContainer gradient='green'>
       {/* Back Button and Header */}
       <div className='mb-6'>
         <Button
           variant='ghost'
-          icon={FaArrowLeft}
           onClick={() => navigate('/conductor-dashboard')}
           className='mb-4'
         >
+          <FaArrowLeft className='mr-2' />
           Volver al panel
         </Button>
 
         <div className='text-center mb-6'>
-          <div className='w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center shadow-xl'>
+          <div className='w-16 h-16 md:w-20 md:h-20 mx-auto mb-4 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center shadow-xl'>
             <FaClipboardCheck className='text-white text-xl md:text-2xl' />
           </div>
           <h1 className='text-2xl md:text-3xl font-bold text-slate-800 mb-2'>
@@ -170,7 +170,7 @@ export const RecepcionIngresoPage: React.FC = () => {
               <textarea
                 rows={3}
                 placeholder='Agrega observaciones sobre la recepción, estado de la carga, diferencias encontradas, etc...'
-                className='w-full px-3 md:px-4 py-2 md:py-3 rounded-lg bg-white border border-slate-300 text-slate-800 placeholder-slate-400 outline-none focus:ring-2 focus:ring-cyan-500 focus:border-transparent transition-all duration-200 resize-none text-sm md:text-base'
+                className='w-full h-32 md:h-40 p-3 border border-slate-300 rounded-lg bg-white resize-none placeholder-slate-400 text-slate-700 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none text-sm md:text-base'
                 {...register('observaciones')}
               />
               {errors.observaciones && (

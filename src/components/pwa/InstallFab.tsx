@@ -173,8 +173,8 @@ export const InstallFab: React.FC = () => {
       {/* Install FAB */}
       <button
         onClick={handleInstall}
-        className='fixed bottom-4 right-4 bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50 flex items-center gap-2 font-medium'
-        aria-label='Instalar aplicación'
+        className='fixed bottom-4 right-4 bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-200 z-50 flex items-center gap-2 font-medium'
+        title='Instalar aplicación'
       >
         <svg
           className='w-5 h-5'
@@ -225,7 +225,7 @@ export const InstallFab: React.FC = () => {
             <div className='space-y-3'>
               {getInstructions().steps.map((step, index) => (
                 <div key={index} className='flex items-start gap-3'>
-                  <div className='w-6 h-6 bg-cyan-100 text-cyan-600 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0'>
+                  <div className='w-6 h-6 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-sm font-medium flex-shrink-0'>
                     {index + 1}
                   </div>
                   <p className='text-gray-700'>{step}</p>
@@ -236,7 +236,7 @@ export const InstallFab: React.FC = () => {
             <div className='mt-6 flex justify-end'>
               <button
                 onClick={() => setShowInstructions(false)}
-                className='px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors'
+                className='px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors'
               >
                 Entendido
               </button>
