@@ -65,10 +65,10 @@ export const SalidaPage: React.FC = () => {
       <div className='mb-6'>
         <Button
           variant='ghost'
-          icon={FaArrowLeft}
           onClick={() => navigate('/dashboard')}
           className='mb-4'
         >
+          <FaArrowLeft className='mr-2' />
           Volver al panel
         </Button>
 
@@ -178,7 +178,7 @@ export const SalidaPage: React.FC = () => {
               </Button>
               <Button
                 type='submit'
-                variant='danger'
+                variant='destructive'
                 fullWidth
                 loading={isSubmitting}
               >

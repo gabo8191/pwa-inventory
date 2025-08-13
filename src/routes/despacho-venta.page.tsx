@@ -65,10 +65,10 @@ export const DespachoVentaPage: React.FC = () => {
       <div className='mb-6'>
         <Button
           variant='ghost'
-          icon={FaArrowLeft}
           onClick={() => navigate('/conductor-dashboard')}
           className='mb-4'
         >
+          <FaArrowLeft className='mr-2' />
           Volver al panel
         </Button>
 
@@ -175,7 +175,7 @@ export const DespachoVentaPage: React.FC = () => {
               </Button>
               <Button
                 type='submit'
-                variant='success'
+                variant='primary'
                 fullWidth
                 loading={isSubmitting}
               >

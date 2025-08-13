@@ -66,11 +66,22 @@ export const IngresoPage: React.FC = () => {
       <div className='mb-6'>
         <Button
           variant='ghost'
-          icon={FaArrowLeft}
           onClick={() => navigate('/dashboard')}
           className='mb-4'
         >
+          <FaArrowLeft className='mr-2' />
           Volver al panel
+        </Button>
+
+        {/* QR Scanner Button - Optional Feature */}
+        <Button
+          variant='primary'
+          onClick={() => {
+            toast.info('🔍 Función de escaneo QR próximamente disponible');
+          }}
+        >
+          <FaQrcode className='mr-2' />
+          Escanear QR
         </Button>
 
         <div className='text-center mb-6'>
@@ -87,11 +98,8 @@ export const IngresoPage: React.FC = () => {
 
         {/* QR Scanner Button */}
         <div className='text-center'>
-          <Button
-            variant='primary'
-            icon={FaQrcode}
-            onClick={() => setCameraOpen(true)}
-          >
+          <Button variant='primary' onClick={() => setCameraOpen(true)}>
+            <FaQrcode className='mr-2' />
             Activar escáner QR
           </Button>
         </div>
@@ -210,7 +218,7 @@ export const IngresoPage: React.FC = () => {
               </Button>
               <Button
                 type='submit'
-                variant='success'
+                variant='primary'
                 fullWidth
                 loading={isSubmitting}
               >
