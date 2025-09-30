@@ -10,3 +10,4 @@ export const ingresoSchema = z.object({
 });
 
 export type IngresoSchema = typeof ingresoSchema;
+export type IngresoInput = z.infer<typeof ingresoSchema>;

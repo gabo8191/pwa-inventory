@@ -10,3 +10,4 @@ export const despachoVentaSchema = z.object({
 });
 
 export type DespachoVentaSchema = typeof despachoVentaSchema;
+export type DespachoVentaInput = z.infer<typeof despachoVentaSchema>;
