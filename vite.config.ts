@@ -68,7 +68,7 @@ export default defineConfig({
             name: 'Dashboard',
             short_name: 'Panel',
             description: 'Ir al panel principal',
-            url: '/dashboard',
+            url: '/yard-operator/dashboard',
             icons: [
               {
                 src: '/pwa-192x192.png',
@@ -81,7 +81,7 @@ export default defineConfig({
             name: 'Nuevo Ingreso',
             short_name: 'Ingreso',
             description: 'Crear nuevo ingreso',
-            url: '/ingreso',
+            url: '/yard-operator/entry',
             icons: [
               {
                 src: '/pwa-192x192.png',
@@ -104,7 +104,7 @@ export default defineConfig({
         runtimeCaching: [
           // API calls - try network first, fallback to cache
           {
-            urlPattern: /^https?:\/\/.*\/api\//,
+            urlPattern: /^(?:\/api\/|https?:\/\/.*\/api\/).*/,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',

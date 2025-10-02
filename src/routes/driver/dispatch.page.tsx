@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   FaArrowLeft,
   FaBoxes,
@@ -10,11 +10,17 @@ import {
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Skeleton } from '../components/common/Skeleton';
-import { EvidenceUpload } from '../components/forms/EvidenceUpload';
-import { Button, Card, Input, PageContainer, Select } from '../components/ui';
-import { despachoVentaSchema } from '../schemas/despacho-venta.schema';
-import type { DespachoVentaFormData } from '../types/forms';
+import { Skeleton } from '../../components/common/Skeleton';
+//import { EvidenceUpload } from '../../components/forms/EvidenceUpload';
+import {
+  Button,
+  Card,
+  Input,
+  PageContainer,
+  Select,
+} from '../../components/ui';
+import { despachoVentaSchema } from '../../schemas/despacho-venta.schema';
+//import type { DespachoVentaFormData } from '../../types/forms';
 
 const CLIENTES = [
   { value: 'cliente-1', label: 'Cliente 1' },
@@ -34,16 +40,18 @@ export const DespachoVentaPage: React.FC = () => {
     reset,
     setValue,
     watch,
-  } = useForm<DespachoVentaFormData>({
-    resolver: zodResolver(despachoVentaSchema),
-    defaultValues: {
-      numeroOrden: '',
-      cliente: '',
-      destino: '',
-      productos: '',
-      observaciones: '',
+  } = useForm(
+    /*<DespachoVentaFormData>*/ {
+      resolver: zodResolver(despachoVentaSchema),
+      defaultValues: {
+        numeroOrden: '',
+        cliente: '',
+        destino: '',
+        productos: '',
+        observaciones: '',
+      },
     },
-  });
+  );
 
   const watchedCliente = watch('cliente');
 
@@ -52,7 +60,8 @@ export const DespachoVentaPage: React.FC = () => {
     return () => clearTimeout(t);
   }, []);
 
-  const onSubmit: SubmitHandler<DespachoVentaFormData> = (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
     console.log('Despacho venta submit', data, selectedFile);
     toast.success('✅ Despacho registrado exitosamente');
     reset();
@@ -138,11 +147,12 @@ export const DespachoVentaPage: React.FC = () => {
               />
             </div>
 
-            {/* Evidence Upload */}
+            {/* Evidence Upload
             <EvidenceUpload
               onFileSelect={setSelectedFile}
               error={errors.evidencia?.message}
             />
+            */}
 
             {/* Observaciones */}
             <div>

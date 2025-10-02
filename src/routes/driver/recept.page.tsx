@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import React, { useEffect, useState } from 'react';
-import { useForm, type SubmitHandler } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import {
   FaArrowLeft,
   FaBuilding,
@@ -11,11 +11,17 @@ import {
 } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
-import { Skeleton } from '../components/common/Skeleton';
-import { EvidenceUpload } from '../components/forms/EvidenceUpload';
-import { Button, Card, Input, PageContainer, Select } from '../components/ui';
-import { recepcionIngresoSchema } from '../schemas/recepcion-ingreso.schema';
-import type { RecepcionIngresoFormData } from '../types/forms';
+import { Skeleton } from '../../components/common/Skeleton';
+//import { EvidenceUpload } from '../../components/forms/EvidenceUpload';
+import {
+  Button,
+  Card,
+  Input,
+  PageContainer,
+  Select,
+} from '../../components/ui';
+import { recepcionIngresoSchema } from '../../schemas/recepcion-ingreso.schema';
+//import type { RecepcionIngresoFormData } from '../../types/forms';
 
 const PROVEEDORES = [
   { value: 'proveedor-1', label: 'Proveedor 1' },
@@ -35,17 +41,19 @@ export const RecepcionIngresoPage: React.FC = () => {
     reset,
     setValue,
     watch,
-  } = useForm<RecepcionIngresoFormData>({
-    resolver: zodResolver(recepcionIngresoSchema),
-    defaultValues: {
-      proveedor: '',
-      numeroGuia: '',
-      conductor: '',
-      placa: '',
-      pesoRecibido: 0,
-      observaciones: '',
+  } = useForm(
+    /*<RecepcionIngresoFormData>*/ {
+      resolver: zodResolver(recepcionIngresoSchema),
+      defaultValues: {
+        proveedor: '',
+        numeroGuia: '',
+        conductor: '',
+        placa: '',
+        pesoRecibido: 0,
+        observaciones: '',
+      },
     },
-  });
+  );
 
   const watchedProveedor = watch('proveedor');
 
@@ -54,7 +62,8 @@ export const RecepcionIngresoPage: React.FC = () => {
     return () => clearTimeout(t);
   }, []);
 
-  const onSubmit: SubmitHandler<RecepcionIngresoFormData> = (data) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const onSubmit = (data: any) => {
     console.log('Recepción ingreso submit', data, selectedFile);
     toast.success('✅ Recepción confirmada exitosamente');
     reset();
@@ -67,7 +76,7 @@ export const RecepcionIngresoPage: React.FC = () => {
       <div className='mb-6'>
         <Button
           variant='ghost'
-          onClick={() => navigate('/conductor-dashboard')}
+          onClick={() => navigate('/driver/dashboard')}
           className='mb-4'
         >
           <FaArrowLeft className='mr-2' />
@@ -156,11 +165,12 @@ export const RecepcionIngresoPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Evidence Upload */}
+            {/* Evidence Upload
             <EvidenceUpload
               onFileSelect={setSelectedFile}
               error={errors.evidencia?.message}
             />
+            */}
 
             {/* Observaciones */}
             <div>
@@ -170,7 +180,7 @@ export const RecepcionIngresoPage: React.FC = () => {
               <textarea
                 rows={3}
                 placeholder='Agrega observaciones sobre la recepción, estado de la carga, diferencias encontradas, etc...'
-                className='w-full h-32 md:h-40 p-3 border border-slate-300 rounded-lg bg-white resize-none placeholder-slate-400 text-slate-700 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none text-sm md:text-base'
+                className='w-full h-32 md:h-40 p-3 border border-slate-300 rounded-lg bg-white placeholder-slate-400 text-slate-700 outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 resize-none text-sm md:text-base'
                 {...register('observaciones')}
               />
               {errors.observaciones && (
@@ -187,7 +197,7 @@ export const RecepcionIngresoPage: React.FC = () => {
                 type='button'
                 variant='secondary'
                 fullWidth
-                onClick={() => navigate('/conductor-dashboard')}
+                onClick={() => navigate('/driver/dashboard')}
               >
                 Cancelar
               </Button>
