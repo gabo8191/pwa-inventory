@@ -26,22 +26,59 @@ export const LoginPage: React.FC = () => {
   });
 
   const onSubmit = async (data: AuthInput) => {
-    const res = await AuthApi.login({
-      username: data.username,
-      password: data.password,
-    });
-    if (res.success) {
-      if (res.token) auth.setToken(res.token);
+    // Credenciales de prueba
+    const demoCredentials = {
+      operador: { username: 'operador', password: 'pass123' },
+      conductor: { username: 'conductor', password: 'pass123' },
+    };
+
+    // Verificar credenciales de prueba primero
+    const isDemoLogin =
+      (userType === 'operador' &&
+        data.username === demoCredentials.operador.username &&
+        data.password === demoCredentials.operador.password) ||
+      (userType === 'conductor' &&
+        data.username === demoCredentials.conductor.username &&
+        data.password === demoCredentials.conductor.password);
+
+    if (isDemoLogin) {
+      // Simular token para demo
+      auth.setToken('demo-token-' + userType);
+
       if (userType === 'operador') {
         toast.success('¡Bienvenido, Operario!');
-        navigate('/dashboard');
+        navigate('/yard-operator/dashboard');
       } else {
         toast.success('¡Bienvenido, Conductor!');
-        navigate('/conductor-dashboard');
+        navigate('/driver/dashboard');
       }
       return;
     }
-    toast.error(res.message || 'Credenciales inválidas');
+
+    // Si no son credenciales de demo, intentar login real
+    try {
+      const res = await AuthApi.login({
+        username: data.username,
+        password: data.password,
+      });
+      if (res.success) {
+        if (res.token) auth.setToken(res.token);
+        if (userType === 'operador') {
+          toast.success('¡Bienvenido, Operario!');
+          navigate('/yard-operator/dashboard');
+        } else {
+          toast.success('¡Bienvenido, Conductor!');
+          navigate('/driver/dashboard');
+        }
+        return;
+      }
+      toast.error(res.message || 'Credenciales inválidas');
+    } catch {
+      // Si falla la API, mostrar mensaje de credenciales inválidas
+      toast.error(
+        'Credenciales inválidas. Usa las credenciales de demostración.',
+      );
+    }
   };
 
   return (

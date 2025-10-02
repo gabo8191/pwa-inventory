@@ -12,7 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { Skeleton } from '../../components/common/Skeleton';
-import { EvidenceUpload } from '../../components/forms/EvidenceUpload';
+//import { EvidenceUpload } from '../../components/forms/EvidenceUpload';
 import {
   Button,
   Card,
@@ -162,11 +162,12 @@ export const RecepcionIngresoPage: React.FC = () => {
               </div>
             </div>
 
-            {/* Evidence Upload */}
+            {/* Evidence Upload
             <EvidenceUpload
               onFileSelect={setSelectedFile}
               error={errors.evidencia?.message}
             />
+            */}
 
             {/* Observaciones */}
             <div>
